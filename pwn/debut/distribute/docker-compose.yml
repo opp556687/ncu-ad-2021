@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  debut:
+    container_name: debut
+    build: ./
+    volumes:
+      - ./share:/home/debut:ro
+      - ./xinetd:/etc/xinetd.d/debut:ro
+    ports:
+      - "10006:10101"
+    expose:
+      - "10101"

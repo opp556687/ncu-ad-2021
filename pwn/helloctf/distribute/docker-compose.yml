@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  helloctf:
+    container_name: helloctf
+    build: ./
+    volumes:
+      - ./share:/home/helloctf:ro
+      - ./xinetd:/etc/xinetd.d/helloctf:ro
+    ports:
+      - "10000:10101"
+    expose:
+      - "10101"

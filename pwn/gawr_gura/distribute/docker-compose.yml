@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  gawr_gura:
+    container_name: gawr_gura
+    build: ./
+    volumes:
+      - ./share:/home/gawr_gura:ro
+      - ./xinetd:/etc/xinetd.d/gawr_gura:ro
+    ports:
+      - "10003:10101"
+    expose:
+      - "10101"

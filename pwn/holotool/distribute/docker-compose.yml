@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  holotool:
+    container_name: holotool
+    build: ./
+    volumes:
+      - ./share:/home/holotool:ro
+      - ./xinetd:/etc/xinetd.d/holotool:ro
+    ports:
+      - "10005:10101"
+    expose:
+      - "10101"

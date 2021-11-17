@@ -1,0 +1,12 @@
+service gawr_gura
+{
+        disable = no
+        type = UNLISTED
+        wait = no
+        server = /home/gawr_gura/run.sh
+        socket_type = stream
+        protocol = tcp
+        user = gawr_gura
+        port = 10101
+        flags = REUSE
+}

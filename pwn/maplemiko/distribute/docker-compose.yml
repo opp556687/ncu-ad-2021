@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  maplemiko:
+    container_name: maplemiko
+    build: ./
+    volumes:
+      - ./share:/home/maplemiko:ro
+      - ./xinetd:/etc/xinetd.d/maplemiko:ro
+    ports:
+      - "10007:10101"
+    expose:
+      - "10101"

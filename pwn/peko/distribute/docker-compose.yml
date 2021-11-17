@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  peko:
+    container_name: peko
+    build: ./
+    volumes:
+      - ./share:/home/peko:ro
+      - ./xinetd:/etc/xinetd.d/peko:ro
+    ports:
+      - "10002:10101"
+    expose:
+      - "10101"

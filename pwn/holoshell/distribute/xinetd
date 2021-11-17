@@ -1,0 +1,12 @@
+service holoshell
+{
+        disable = no
+        type = UNLISTED
+        wait = no
+        server = /home/holoshell/run.sh
+        socket_type = stream
+        protocol = tcp
+        user = holoshell
+        port = 10101
+        flags = REUSE
+}

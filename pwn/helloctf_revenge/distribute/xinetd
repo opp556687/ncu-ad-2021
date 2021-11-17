@@ -1,0 +1,12 @@
+service helloctf_revenge
+{
+        disable = no
+        type = UNLISTED
+        wait = no
+        server = /home/helloctf_revenge/run.sh
+        socket_type = stream
+        protocol = tcp
+        user = helloctf_revenge
+        port = 10101
+        flags = REUSE
+}

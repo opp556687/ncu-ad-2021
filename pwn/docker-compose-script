@@ -1,0 +1,12 @@
+#!/bin/zsh
+
+docker-compose -f helloctf/distribute/docker-compose.yml -p helloctf $1 $2 $3
+docker-compose -f helloctf_revenge/distribute/docker-compose.yml -p helloctf_revenge $1 $2 $3
+docker-compose -f peko/distribute/docker-compose.yml -p peko $1 $2 $3
+docker-compose -f gawr_gura/distribute/docker-compose.yml -p gawr_gura $1 $2 $3
+docker-compose -f holoshell/distribute/docker-compose.yml -p holoshell $1 $2 $3
+docker-compose -f holotool/distribute/docker-compose.yml -p holotool $1 $2 $3
+docker-compose -f debut/distribute/docker-compose.yml -p debut $1 $2 $3
+docker-compose -f maplemiko/distribute/docker-compose.yml -p maplemiko $1 $2 $3
+docker-compose -f pekopeko/distribute/docker-compose.yml -p pekopeko $1 $2 $3
+docker-compose -f mapleasm/distribute/docker-compose.yml -p mapleasm $1 $2 $3

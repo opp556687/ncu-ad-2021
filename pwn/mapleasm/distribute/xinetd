@@ -1,0 +1,12 @@
+service mapleasm
+{
+        disable = no
+        type = UNLISTED
+        wait = no
+        server = /home/mapleasm/run.sh
+        socket_type = stream
+        protocol = tcp
+        user = mapleasm
+        port = 10101
+        flags = REUSE
+}

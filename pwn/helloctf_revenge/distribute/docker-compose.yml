@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  helloctf_revenge:
+    container_name: holoctf_revenge
+    build: ./
+    volumes:
+      - ./share:/home/helloctf_revenge:ro
+      - ./xinetd:/etc/xinetd.d/helloctf_revenge:ro
+    ports:
+      - "10001:10101"
+    expose:
+      - "10101"

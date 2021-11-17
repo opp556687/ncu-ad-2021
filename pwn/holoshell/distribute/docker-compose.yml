@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  holoshell:
+    container_name: holoshell
+    build: ./
+    volumes:
+      - ./share:/home/holoshell:ro
+      - ./xinetd:/etc/xinetd.d/holoshell:ro
+    ports:
+      - "10004:10101"
+    expose:
+      - "10101"

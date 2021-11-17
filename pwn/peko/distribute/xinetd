@@ -1,0 +1,12 @@
+service peko
+{
+        disable = no
+        type = UNLISTED
+        wait = no
+        server = /home/peko/run.sh
+        socket_type = stream
+        protocol = tcp
+        user = peko
+        port = 10101
+        flags = REUSE
+}

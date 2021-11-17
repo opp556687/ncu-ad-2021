@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  mapleasm:
+    container_name: mapleasm
+    build: ./
+    volumes:
+      - ./share:/home/mapleasm:ro
+      - ./xinetd:/etc/xinetd.d/mapleasm:ro
+    ports:
+      - "10010:10101"
+    expose:
+      - "10101"

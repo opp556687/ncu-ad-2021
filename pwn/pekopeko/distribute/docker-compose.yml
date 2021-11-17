@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  pekopeko:
+    container_name: pekopeko
+    build: ./
+    volumes:
+      - ./share:/home/pekopeko:ro
+      - ./xinetd:/etc/xinetd.d/pekopeko:ro
+    ports:
+      - "10008:10101"
+    expose:
+      - "10101"
