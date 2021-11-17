@@ -29,9 +29,11 @@ void magic()
 ```
 如果成功將return address覆蓋成`magic`的起始位置如下圖的情況
 ![](https://i.imgur.com/vasNAcy.png)
+
 接著如果繼續往後走會segmentation fault，這邊是考點之一需要用gdb去追看他為甚麼會segmentation fault
 用gdb往後追之後就能找到他發生segmentation fault的原因如下圖所示
 ![](https://i.imgur.com/LCCFMu9.png)
+
 可以知道造成segmentation fault的主要原因是因為下面這個指令
 ```
 movaps xmmword ptr [rsp + 0x50], xmm0
@@ -103,6 +105,7 @@ case 6:
 但是如果要做ROP蓋完return address之後就沒有太多空間可做ROP了，因此必須使用stack migration的技巧來另外找一塊更大的空間疊ROP chain
 因為bss段是可寫的所以先把stack搬到bss段上然後讓return address蓋成`read(0, buf, 100)`的位置就能再做一次寫入並且是寫在bss段上，如下圖所示RBP已被搬到bss段上
 ![](https://i.imgur.com/9JkID0G.png)
+
 由於read會寫到\[rbp-0x50\]的位置所以當RBP已經在bss段上時就能把ROP chain寫在bss段上，在上面疊好ROP chain之後就跳進去就能成功get shell
 ![](https://i.imgur.com/cegj4ww.png)
 
