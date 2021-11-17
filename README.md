@@ -42,6 +42,8 @@ movaps xmmword ptr [rsp + 0x50], xmm0
 1. 在覆蓋return address的時候不要跳進magic的開頭讓他不要做function prologue
 2. 在跳進magic前先塞一個ret的gadget幫他把stack對齊再跳進magic裡面
 
+[exploit](/pwn/helloctf_revenge/solve.py)
+
 ## peko
 ### 考點
 1. shellcode
@@ -74,6 +76,8 @@ for (i = 0; i < 64; i++)
 \x41\xFF\xE7                          jmp    r15
 ```
 一開始先把要放shellcode的位置存在r15上面所以就構造出`read(0, r15, 0xffff)`的shellcode之後可以進行第二次寫入，寫入`execve("/bin/sh", NULL, NULL)`的shellcode來開shell，然後因為shellcode的位置已經存在r15上就直接`jmp r15`跳進去shellcode就可以了
+
+[exploit](/pwn/peko/solve.py)
 
 ## gawr_gura
 ### 考點
@@ -108,6 +112,8 @@ case 6:
 
 由於read會寫到\[rbp-0x50\]的位置所以當RBP已經在bss段上時就能把ROP chain寫在bss段上，在上面疊好ROP chain之後就跳進去就能成功get shell
 ![](https://i.imgur.com/cegj4ww.png)
+
+[exploit](/pwn/gawr_gura/solve.py)
 
 
 ## holoshell
@@ -154,6 +160,8 @@ free(command);
 
 這樣就能成功達成command injection的效果來執行`system("sh")`來把shell開啟
 
+[exploit](/pwn/holoshell/exploit.py)
+
 ## holotool
 ### 考點
 1. OOB
@@ -173,6 +181,8 @@ int read_int()
 }
 ```
 所以如果把`atoi`的got改成system的位置，這時如果在buf輸入`sh`原本的`atoi("sh")`就會變成`system("sh")`就能成功拿到shell
+
+[exploit](/pwn/holotool/exploit.py)
 
 ## debut
 ### 考點
@@ -240,6 +250,8 @@ void set_fan_name()
 
 當成功leak出canary跟libc base address之後因為overflow的部分可以覆蓋到return address甚至更後面所以直接在這邊疊rop chain就可以get shell
 
+[exploit](/pwn/debut/exploit.py)
+
 ## pekopeko
 ### 考點
 1. shellcode
@@ -292,6 +304,9 @@ add al, {idx}
 mov bl, byte ptr [rax]
 cmp bl, {i}
 ```
+
+[exploit](/pwn/pekopeko/exploit.py)
+
 ## maplemiko
 author: maple3142
 ### 考點
@@ -317,6 +332,8 @@ printf(str, str);
 再透過b把return address改成one gadget就能get shell了
 ![](https://i.imgur.com/UlcshTM.png)
 
+[exploit](/pwn/maplemiko/exploit.py)
+
 
 #### maple version
 因為有fmt的漏洞，所以可以先利用這個漏洞把所有所需用到的東西如canary libc base等等都leak出來
@@ -338,6 +355,8 @@ void *readstr()
 
 這樣再進一次readstr在讀取輸入的時候就會直接寫在剛剛控好的RBP上，就可以在上面寫入ROP chain，最後main離開的時候會踩到`leave ret`就會跳進去剛剛控好的ROP chain的位置就能夠拿到shell
 ![](https://i.imgur.com/P27eJYh.png)
+
+[exploit](/pwn/maplemiko/maple_exploit.py)
 
 ## mapleasm
 author: maple3142
@@ -363,3 +382,5 @@ syscall
 0x000000000040100f : syscall
 ```
 但是如果要開shell的話就要使用`execve("/bin/sh", NULL, NULL)`而execve的syscall number是59，但是沒有可以控到rax的gadget可以利用，但是因為`read`這個syscall會回傳成功讀取多少個byte並把結果放在rax上，所以如果在跳進ROP chain之前先用一次`read`去讀59個字這樣rax就會是59，這樣就已經控好rax了接著再進到ROP chain裡面去把其他要用到的參數填好最後就能拿到shell了
+
+[exploit](/pwn/mapleasm/maple_exploit.py)
