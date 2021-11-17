@@ -330,6 +330,7 @@ printf(str, str);
 然後可以看到他們和存return address那個位置之間的差異只有2byte所以可以嘗試利用fmt改最低的2個byte，可以嘗試透過a把b改成指向return address的位置，如下圖的結果原本的第5個是指向環境變數但改完後她變成指向return address
 ![](https://i.imgur.com/bEi0XsW.png)
 再透過b把return address改成one gadget就能get shell了
+
 ![](https://i.imgur.com/UlcshTM.png)
 
 [exploit](/pwn/maplemiko/exploit.py)
@@ -338,6 +339,7 @@ printf(str, str);
 #### maple version
 因為有fmt的漏洞，所以可以先利用這個漏洞把所有所需用到的東西如canary libc base等等都leak出來
 然後觀察一下暫存器上的值可以發現`RSI`會指向剛剛輸入字串的地方，然後根據x64的calling convention前幾個參數會利用`rdi rsi ...`把值存在暫存器上傳給function，而`RSI`是第二個參數所以利用`%1$p`就可以把`RSI`的值印出來，這樣就能夠找到存放輸入的那段stack了
+
 ![](https://i.imgur.com/EI0i8gX.png)
 
 接著因為readstr存在buffer overflow的漏洞，但長度只能剛剛好蓋到RBP的位置，所以可以去蓋RBP的位置來做到stack migration
