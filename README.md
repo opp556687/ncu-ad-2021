@@ -1,6 +1,3 @@
----
-tags: 2021 攻防
----
 # 2021 攻防 HW1 writeup
 
 ## helloctf_revenge
